@@ -22,7 +22,16 @@ async function create(req, res) {
     }
 };
 
+async function deletePlant(req, res) {
+    try {
+        await Plant.findByIdAndDelete({_id:req.params.id})
+    } catch (error) {
+        console.log(error);
+    }
+};
+
 module.exports = {
     index,
     create,
+    delete: deletePlant,
 };
