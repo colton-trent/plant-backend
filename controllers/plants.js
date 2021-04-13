@@ -15,6 +15,7 @@ async function create(req, res) {
     try {
         const plant = await Plant.create(req.body);
         res.status(201).json(plant);
+        index(req, res);
     } catch (error) {
         console.log(error);
         res.status(401).json({
@@ -22,11 +23,13 @@ async function create(req, res) {
     }
 };
 
-async function deletePlant(req, res) {
+function deletePlant(req, res) {
     try {
-        await Plant.findByIdAndDelete({_id:req.params.id})
+        const deletedPlant = await Plant.findByIdAndDelete(req.params.id);
+        req.query = deletedPlant;
+        index(req, res);
     } catch (error) {
-        console.log(error);
+       res.status(401).json({error: 'something went wrong'});
     }
 };
 
