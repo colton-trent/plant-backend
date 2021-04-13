@@ -1,5 +1,4 @@
 const Plant = require('../models/plant');
-
 async function index (req, res) {
     try {
         const plants = await Plant.find({});
@@ -10,12 +9,10 @@ async function index (req, res) {
             error: `something went wrong`})
     }
 };
-
 async function create(req, res) {
     try {
         const plant = await Plant.create(req.body);
         res.status(201).json(plant);
-        index(req, res);
     } catch (error) {
         console.log(error);
         res.status(401).json({
@@ -23,13 +20,11 @@ async function create(req, res) {
     }
 };
 
-function deletePlant(req, res) {
+async function deletePlant(req, res) {
     try {
-        const deletedPlant = await Plant.findByIdAndDelete(req.params.id);
-        req.query = deletedPlant;
-        index(req, res);
+        await Plant.findByIdAndDelete({_id:req.params.id})
     } catch (error) {
-       res.status(401).json({error: 'something went wrong'});
+        console.log(error);
     }
 };
 
@@ -37,4 +32,4 @@ module.exports = {
     index,
     create,
     delete: deletePlant,
-};
+}; 
