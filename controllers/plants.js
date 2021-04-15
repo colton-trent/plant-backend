@@ -23,7 +23,9 @@ async function create(req, res) {
 
 async function deletePlant(req, res) {
     try {
-        await Plant.findByIdAndDelete({_id:req.params.id})
+        const deletedPlant = await Plant.findByIdAndDelete(req.params.id);
+        req.query = deletedPlant;
+        index(req, res);
     } catch (error) {
         console.log(error);
     }
