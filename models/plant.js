@@ -16,6 +16,10 @@ const plantSchema = new Schema({
     imageUrl: {
         type: String,
     },
+    amount: {
+        type: Number,
+        default: 1,
+    }
 }, {
     timestamps: true,
 });

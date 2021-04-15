@@ -9,6 +9,7 @@ async function index (req, res) {
             error: `something went wrong`})
     }
 };
+
 async function create(req, res) {
     try {
         const plant = await Plant.create(req.body);
